@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="height=device-height,width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+        <script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+        <script type="text/javascript" src="scripts/functions4ROS.js"></script>
+    </head>
+    
+<!-- disable enter key for "avoid return"     -->
+    <body onkeydown="if(event.keyCode==13) return false;">
+    
+    <body>
+<!-- Page41 -->
+    <div id="Page41" style="display: none; overflow:hidden;">
+        <div style="height: 20%; " class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    ROS Turtlesim control test;
+                </h1>
+            </div>
+            <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(4)">
+                    return
+                </button>
+            </div>
+        </div>
+        
+        <form name="ctrlPanel">
+            <p>Enter positive or negative numeric decimal values in the boxes below</p>
+            <table>
+                <tr><td>Linear X</td><td><input id="linearXText" name="linearXText" type="text" value="1.5"/></td></tr>
+                <tr><td>Angular Z</td><td><input id="angularZText" name="angularZText" type="text" value="1.5"/></td></tr>
+            </table>
+            <button id="sendMsg" type="button" onclick="pubMessage()">Publish Message</button>
+        </form>
+        <div id="feedback"></div>
+    </div>
+
+<!-- Page42 -->
+    <div id="Page42" style="display: none; overflow:hidden;">
+        <div style="height: 20%; " class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    ROS Text Communication;
+                </h1>
+            </div>
+            <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(4)">
+                    return
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 80%; " class="row">
+            <div class="col-sm-6">        
+                <form name="ctrlPanel">
+                    <P>Check the steps as the follows</P>
+                    <p>1.$ roscore</p>
+                    <p>2.$ $ roslaunch rosbridge_server rosbridge_websocket.launch</p>
+                    <p>3.Run the Android/Web App</p>
+                    <p>4.Check the /roslibjs_communicate_listener existence by $ rostopic list</p>
+                    <p>5.Enter message in the boxes below</p>
+                    <table>
+                        <tr><td style="background-color:orange;" >Communicate Message</td><td><input id="comText" name="comText" type="text" value=""/></td></tr>                 
+                    </table>
+                    <button id="sendComMsg" type="button" onclick="pubComMessage()">
+                        Publish Message
+                    </button>
+                </form>       
+            </div>
+            
+            <div class="col-sm-6">                            
+                <style>
+                    table, th, td { border: 1px solid black; border-collapse: collapse;}
+                </style>                
+                <table style="width:100%">
+                    <tr>
+                        <th>
+                            Message
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <output id="comMessageList" name="comMessageList" type="text"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>    
+    </div> 
+
+<!-- Page43 -->
+    <div id="Page43" style="display: none; overflow:hidden;">
+        <div style="height: 20%; " class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    ROS Speech Test;
+                </h1>
+            </div>
+            <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(4)">
+                    return
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 30%; " class="row">
+            <div class="col-sm-12">        
+                <form name="ctrlPanel">
+                    <P>Check the steps as the follows</P>
+                    <p>0.Setting ROS_IP</p>                    
+                    <p>1.$ roscore</p>
+                    <p>2.$ $ roslaunch rosbridge_server rosbridge_websocket.launch</p>
+                    <p>3.Run the Android/Web App</p>
+                    <p>4.Check the /roslibjs_communicate_listener existence by $ rostopic list</p>
+                    <p>5.Enter message in the boxes below</p>
+                    <div style="height: 10%; " class="row">
+                        <div style="height: 50%; float:left; margin-left: 2%; margin-top: 2%" class="col-sm-3">
+                            <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-info active" onclick="pubSpeechSW(1)">
+                                Start Listen
+                            </button>
+                        </div>
+                        <div style="height: 50%; float:left; margin-left: 2%; margin-top: 2%" class="col-sm-3">
+                            <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-info active" onclick="pubSpeechSW(0)">
+                                Stop Listen
+                            </button>
+                        </div>
+                    </div>
+                        <table>
+                            <tr>
+                                <td style="background-color:orange;" >
+                                    Communicate Message
+                                </td>
+                                <td>
+                                    <input id="TTSText" name="TTSText" type="text" value=""/>
+                                </td>
+                             </tr>                 
+                        </table>
+                    <button id="speachMsgBtn" type="button" onclick="pubTTSSpeech()">Publish Message</button>
+                </form>       
+            </div>
+        </div>
+        
+        <div style="height: 80%; " class="row">
+            <div class="col-sm-12">
+                <style>
+                    table, th, td { border: 1px solid black; border-collapse: collapse;}
+                </style>                
+                <table style="width:80%">
+                    <tr>
+                        <th style="background-color:orange;" >
+                            Messages
+                        </th>
+                        <th style="background-color:write;" >
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            ASR Request
+                        </th>  
+                        <th>
+                            TTS Request
+                        </th>  
+                    </tr>
+                    <tr>
+                        <td>
+                            <output id="ASRMegRequest" name="ASRMegRequest" type="text"/>
+                        </td>
+                        <td>
+                            <output id="TTSMegRequest" name="TTSMegRequest" type="text"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<!-- PageVideo -->
+
+    <div id="PageVideo" style="display: none; overflow: hidden;">
+        <div style="height: 20%; " class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    简介(mp4放映)
+                </h1>
+            </div>
+            <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(0)">
+                    return
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 50%; " class="row">
+            <div class="col-sm-4">
+                <video width=300px height=300px; controls loop">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="col-sm-4">
+                <video width=300px height=300px controls loop>
+                    <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                </video>
+            </div>
+        </div> 
+    </div>
+
+<!-- Page0 2x2-->
+    <div id="Page0" style="height: 480px;margin: 1%" class="container-fluid">
+        <div style="height: 20%; " class="row">
+            <div class="col-sm-12">
+                <h1 class="text-primary text-center">
+                    Page0: 2x2 &#20027;&#39029;&#38754;
+                </h1>
+            </div>
+        </div>
+        <div style="height: 50%;" class="row">
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(888)">
+                    项目一<br>(简介)
+                </button>
+            </div>
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-primary btn-block btn-lg active" onclick="switchPage(1)">
+                    项目二<br>(常见问题)
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 10%;" class="row">
+            <div class="col-sm-12"></div>
+        </div>
+        
+        <div style="height: 50%;" class="row">
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(3)">
+                    项目三<br>(游戏)
+                </button>
+            </div>
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-primary btn-block btn-lg active" onclick="switchPage(4)">
+                    项目四<br>(工具)
+                </button>
+            </div>
+        </div>
+    </div>
+
+<!-- Page1 2x3-->
+    <div id="Page1" style="height: 480px;display: none" class="container-fluid">
+        <div style="height: 20%;" class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    Page1: 2x3 页面 (常见问题)
+                </h1>
+            </div>
+            <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(0)">
+                    return
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 50%;" class="row">
+            <div style="height: 100%;" class="col-sm-4">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary disabled">
+                    问题一
+                </button>
+            </div>
+            <div style="height: 100%;" class="col-sm-4">
+                <button style="height: 100%;" type="button" class="btn btn-primary btn-block btn-lg disabled">
+                    问题二
+                </button>
+            </div>
+            <div style="height: 100%;" class="col-sm-4">
+                <button style="height: 100%;" type="button" class="btn btn-primary btn-lg btn-block active" onclick="switchPage(2)">
+                    问题三<br>(常见眼疾)
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 10px;" class="row">
+            <div class="col-sm-12">
+            </div>
+        </div>
+        
+        <div style="height: 50%;" class="row">
+            <div style="height: 100%;" class="col-sm-4">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary disabled">
+                    问题四
+                </button>
+            </div>
+            <div style="height: 100%;" class="col-sm-4">
+                <button style="height: 100%;" type="button" class="btn btn-primary btn-block btn-lg disabled">
+                    问题五
+                </button>
+            </div>
+            <div style="height: 100%;" class="col-sm-4">
+                <button style="height: 100%;" type="button" class="btn btn-primary btn-lg btn-block disabled">
+                   问题六
+                </button>
+            </div>
+        </div>
+    </div>
+
+<!-- Page2 nx1-->
+    <div id="Page2" style="height: 480px;display: none" class="container-fluid">
+        <div style="height: 20%;" class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    Page2: nx1 页面  (常见眼疾)
+                </h1>
+            </div>
+            <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(1)">
+                    return
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 20%;" class="row">
+            <div style="height: 100%;" class="col-sm-12">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary" onclick="switchPage(51)">
+                    <span class="pull-left">
+                    乾眼症
+                    </span>
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 10px;" class="row">
+            <div class="col-sm-12">
+            </div>
+        </div>
+        
+        <div style="height: 20%;" class="row">
+            <div style="height: 100%;" class="col-sm-12">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary" onclick="switchPage(52)">
+                    <span class="pull-left">
+                    结膜炎
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+<!-- Page3 2x2-->
+    <div id="Page3" style="height: 480px; display: none; margin: 1%" class="container-fluid">
+        <div style="height: 20%;" class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    Page3: 2x2 页面 (游戏)
+                </h1>
+            </div>
+            <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(0)">
+                    return
+                </button>
+            </div>
+        </div>
+        <div style="height: 50%;" class="row">
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary disabled">
+                    游戏一
+                </button>
+            </div>
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-primary btn-block btn-lg disabled">
+                    游戏二
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 10%;" class="row">
+            <div class="col-sm-12">
+            </div>
+        </div>
+        
+        <div style="height: 50%;" class="row">
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary disabled">
+                    游戏三
+                </button>
+            </div>
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-primary btn-block btn-lg disabled">
+                    游戏四
+                </button>
+            </div>
+        </div>
+    </div>
+
+<!-- Page4 2x2-->
+    <div id="Page4" style="height: 480px; display: none; margin: 1%" class="container-fluid">
+        <div style="height: 20%;" class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    Page4: 2x2 页面 (工具)
+                </h1>
+            </div>
+            <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(0)">
+                    return
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 50%;" class="row">
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(41)">
+                    工具一
+                    <br>(ROS Turtlesim control)
+                </button>
+            </div>
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-primary btn-block btn-lg active"
+                onclick="switchPage(42)">
+                    工具二
+                    <br>(ROS Text Communication)
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 10%;" class="row">
+            <div class="col-sm-12">
+            </div>
+        </div>
+        
+        <div style="height: 50%;" class="row">
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(43)">
+                    工具三
+                    <br>(ROS Speech Test)
+                </button>
+            </div>
+            <div style="height: 100%;" class="col-sm-6">
+                <button style="height: 100%;" type="button" class="btn btn-primary btn-block btn-lg disabled">
+                    工具四
+                </button>
+            </div>
+        </div>
+    </div>
+
+<!-- Page51 -->
+    <div id="Page51" style="height: 480px;display: none" class="container-fluid">
+        <div style="height: 20%;" class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    Page5-1: 乾眼症
+                </h1>
+            </div>
+            <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(2)">
+                    return
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 20%;" class="row">
+            <div style="height: 100%;" class="col-sm-12">
+                <h5>乾眼症的预防与治疗</h5>
+                <p>「乾眼症」是眼科门诊中常见的疾病之一，泪水的分泌在正常的情况下会随着年龄的增长而减少，所以乾眼症的病患也以年长者居多。但是近年来，由于空气品质日益恶化，年轻的患者也越来越多。另一方面，由于资讯事业蓬勃发展，国人使用电脑的机会日趋频繁，但也因此造成专心注视电脑萤幕的时间增加，，容易使眨眼次数降低，眼球表面蒸发速率增快，而使乾眼的情形加剧。</p>
+                <p>正常的眼睛有一层很薄的泪液膜，复盖在角膜和结膜之前。这层膜由外而内又可细分为油脂层、水液层及黏液层等三层，表面的油脂层可防止水份的蒸发，黏液层则可使泪水均匀分布在角膜表面，紧贴着角膜。于正常眨眼时，角膜前的泪液层会更换，使眼睛觉得舒适，视觉清楚，但是乾眼症的人，因泪液分泌不足或异常，无法保持眼睛的湿润及舒适，且因泪液层的更换效果较差，因而产生不适的症状。</p>
+                <h5>乾眼的症状主要有</h5>
+                <ol>
+                    <li>眼睛乾涩，易疲倦</li>
+                    <li>异物感、灼热感</li>
+                    <li>眼皮紧绷、沉重感</li>
+                    <li>畏光、痒</li>
+                    <li>分泌物黏稠</li>
+                    <li>对外界刺激（光、风、烟）敏感</li>
+                    <li>短暂视力模煳</li>
+                </ol>
+                <p>
+                <h5>导致乾眼症的原因</h5>
+                <p>
+                <ol>
+                    <li>製造泪液的能力降低或丧失，例如老化。</li>
+                    <li>眨眼功能不全，以致于泪液不能完全复盖眼球表面。</li>
+                    <li>维他命A缺乏和化学性灼伤导致黏液缺乏。</li>
+                    <li>慢性眼睑炎所导致脂质缺乏。</li>
+                    <li>翳状赘片、砂眼等结膜上的不平滑病灶，也会造成眼球表面泪液不平均而引起乾眼症。</li>
+                    <li>服用某些药物：镇定剂、止痛剂、口服避孕剂、止吐剂、青春痘治疗剂等。</li>
+                    <li>曝露在强风、热、烟雾、灰尘污染环境或其他眼睛刺激物中。</li>
+                    <li>眼睛受到感染。</li>
+                    <li>在冷气房中长久工作。</li>
+                    <li>长时间使用眼力工作，如阅读、电脑操作也会造成暂时性的乾眼现象。</li>
+                    <li>女性荷尔蒙减少，例如更年期妇女。</li>
+                    <li>过敏物质：如化妆品、隐形眼镜清洁剂及保养液或隐形眼镜本身，眼药中的防腐剂等。</li>
+                    <li>在某些免疫性疾病如类风湿性关节炎，自体免疫细胞破坏泪腺功能造成乾眼。</li>
+                </ol>
+                <p>
+                <h5>乾眼症的治疗：</h5>
+                <p>
+                首先应寻找及去除可能的致病原因，要正确地找出病因才能对症下药。
+                <h6>水分缺乏造成的乾眼症</h6>
+                <ol>
+                    <li>刺激泪液的分泌：按摩、热敷等。</li>
+                    <li>补充人工泪液：临床中这也是治疗乾眼症最主要的方式，目前常用有药水、药膏及泪胶等，病患可以选择比较适合自己的人工泪水，来缓解不适的症状。</li>
+                    <li>保存泪水：减少泪水蒸发，在密闭的室内放一盆水，可增加空气中的溼度，降低室内温度；骑车时可戴眼镜或全罩式的安全帽，都可以减少泪水的蒸发速度。</li>
+                    <li>减少泪水排除：可放置泪管塞及泪小管电烧法来阻断泪水的排泄通道。</li>
+                </ol>
+                <h6>油脂层造成的乾眼症</h6>
+                <ol>
+                    <li>改变生活作息，不熬夜。</li>
+                    <li>避免吃刺激性的食物。</li>
+                    <li>眼睛热敷，每天3~4次，每次5~１0分钟。</li>
+                    <li>注意眼睑缘的清洁。</li>
+                    <li>有眼睑炎，需口服抗生素治疗。</li>
+                </ol>
+                <h6>黏液层造成的乾眼症</h6>
+                <ol>
+                    <li>黏液素分液过多，给予溶解黏液素的药物。</li>
+                    <li>补充维生素A如：番茄、红萝蔔、木瓜、鱼、牛奶等。</li>
+                    <li>结膜有过敏、发炎情形要积极治疗。</li>
+                    <li>结膜因灼伤或砂眼结疤，导致黏液素严重不足，可以用自体结膜或口腔黏膜移植手术治疗。</li>
+                </ol>
+                <p>
+                <h5>乾眼症的预防</h5>
+                <p>
+                <ol>
+                    <li>正常的生活型态，睡眠充足、不熬夜。</li>
+                    <li>均衡的饮食，少吃刺激性的食物，多吃富含维他命A、C、E的水果与食物。</li>
+                    <li>改变用眼习惯，定时休息，建议每隔50分钟，休息5~１0分钟，注意眨眼的频率及每分钟大约眨眼十五到二十次。</li>
+                    <li>洗脸时，注意眼睑睫毛的清洁，并养成每晚热敷的习惯。</li>
+                    <li>勿乱口服药物，尤其是安眠药及镇静剂，如有需要服用需与专科医师讨论，儘量减低剂量。</li>
+                    <li>眼球表面的疾病，如角膜、结膜及眼睑有发炎、敏感、受伤或病变需与专科医师合作积极治疗。切勿自行买成药来用，因为有些药物长期使用会减低角膜敏感度，甚至造成结膜角质化，造成乾眼症。</li>
+                </ol>
+                <p>乾眼症是慢性病，不易根治，若不好好追?检查，厉害的话可能导致角膜病变而影响视力。随着基础研究的进展，我们对乾眼症有更新的认识，也发展出有效的治疗方式。虽然有许多研究只是在初步实验阶段，效果未知也还不能运用在临床上，基本上乾眼症只要能好好改善环境，改善用眼习惯，遵照医师指示用药治疗，还是可以控制的很好。总之，善待我们的眼睛，才是健康之道。</p>
+            </div>
+        </div>
+    </div>
+
+<!-- Page52 -->
+    <div id="Page52" style="height: 480px;display: none" class="container-fluid">
+        <div style="height: 20%;" class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    Page5-2: 结膜炎
+                </h1>
+            </div>
+            <div style="height: 50%; float:right;
+                        margin-right: 5%;
+                        margin-top: 2%"
+                 class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(2)">
+                    return
+                </button>
+            </div>
+        </div>
+        <div style="height: 20%;" class="row">
+            <div style="height: 100%;" class="col-sm-12">
+                <h5>結膜炎的預防與保健</h5>
+                <p>「結膜炎」是眼科門診中最常見的疾病之一，主要症狀則包括了：眼睛紅腫、流淚、疼痛、畏光、以及眼脂增加，每當游泳季節的來臨，許多青少年易從公共設施或大眾游泳池中感染到結膜炎，或接觸到受污染的公共物品如：毛巾、臉盆&hellip;等，皆會在學校、托兒所及家中造成相互傳染，而造成所謂的「紅眼症」，幾乎每年皆有流行，整年均可看到，但仍以夏季急性結膜炎的患者特別多。</p>
+                <h5>分類、形成原因和症狀：</h5>
+                <p>急性結膜炎<br>主要是由濾過性病毒所引起，如克沙奇病毒、腺病毒、和腸病毒，少數是經由非濾過性病毒所造成，如披衣菌，傳染的途徑是經由公共場所或家庭中接觸傳染，主要臨床症狀為：眼睛內有異物感，眼瞼浮腫、性光、流淚，有一些黏稠的分泌物，先是一隻眼睛發作，然後傳到另一隻眼睛，或者兩眼同時發病，具有高度的傳染性。</p>
+                <p>慢性結膜炎<br>主要是因眼睛受細菌或病毒感染未接受徹底治癒，或受外界反覆刺激，例如風吹、煙燻及灰塵等，眼瞼方面有問題，如睫毛倒插一直刺激到眼睛，或眼瞼外翻使結膜長期曝露在空氣中，造成乾澀、發紅，淚囊炎及眼睛周圍的皮膚發炎，乾眼症因淚水分泌減少，無法有效的濕潤眼睛，或對外界環境刺激較敏感，及長期點眼藥，因對眼藥中的成份或防腐劑起反應，主要症狀包括了：眼睛微紅、乾澀疲勞、熱癢不適、分泌物不多偶有眼屎、頻頻眨眼、流淚或少淚為主、容易疲倦。</p>
+                <p>流行性結膜炎<br>經由腺病毒及克沙奇病毒所引起，其傳染途徑為：接觸傳染，主要症狀包括了：眼睛紅腫、有異物感、淡黃色分泌物增加、睫毛經常有眼屎沾黏、易合併淋巴腺腫大，發燒等全身性症狀。</p>
+                <p>過敏性結膜炎<br>分為2種，一種跟季節有關的，通常在春、秋季比較容易發生，在季節轉換的時候，有些人不只是鼻子打噴涕、眼睛也會癢、全身發癢，有些是本身體質的關係，例如：本身有異位性皮膚炎，同樣在眼睛也會有過敏性的結膜炎，這種的跟季節無關，患者就是會覺得一年四季都不舒服。</p>
+                <h5>個人預防和保鍵</h5>
+                    <ol>
+                        <li>避免用手揉眼睛。</li>
+                        <li>平時要維持良好的衛生習慣，隨時注意清潔，常用肥皂洗手，並保持乾燥。</li>
+                        <li>避免接觸患者所使用過的毛巾、肥皂、寢具及門把、水龍頭等物品。</li>
+                        <li>不要借用別人眼藥水、隱形眼鏡&hellip;等私人物品。</li>
+                        <li>不在結膜炎流行期間做不必要的眼科檢查。</li>
+                        <li>若是經由外界環境所造成，則應儘量避免接觸到刺激源，如減少外出可以減少風吹及接觸油、煙、灰塵&hellip;等刺激物。</li>
+                    </ol>
+                <p>
+                <h5>醫護團隊們須注意的</h5>
+                <p>
+                    <ol>
+                        <li>當檢查或照顧懷疑罹患流行性結膜炎之病患時應戴手套。</li>
+                        <li>由於病毒千變萬化，目前並無特定的藥物，治療的方式以症狀治療為主。</li>
+                        <li>檢查或照顧之後並應使用含消毒劑之洗手劑洗手劑洗手。</li>
+                        <li>病患眼藥應避免與其他病患共用。</li>
+                        <li>所有接觸結膜的儀器應經滅菌或高程度消毒處理。</li>
+                        <li>加強洗手及注意個人衛生習慣是預防流行性結膜炎院內感染最簡單、最有效的方法。</li>
+                        <li>眼壓頭應在每位病患使用後，先以清水洗去污染，在使用消毒液如：500ppm chlorine、3%hydrogen peroxide 、70% ethyl alchol或70% isopropyl alchol浸泡五至十分鐘，再以無菌蒸餾水洗濯，最後取出晾乾後再給下一位病患使用。</li>
+                    </ol>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="scripts/webPagesControl.js"
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    </body>
+</html>
