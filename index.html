@@ -14,6 +14,7 @@
     <body onkeydown="if(event.keyCode==13) return false;">
     
     <body>
+
 <!-- Page41 -->
     <div id="Page41" style="display: none; overflow:hidden;">
         <div style="height: 20%; " class="row">
@@ -56,27 +57,27 @@
         </div>
         
         <div style="height: 80%; " class="row">
-            <div class="col-sm-6">        
+            <div class="col-sm-6">
                 <form name="ctrlPanel">
                     <P>Check the steps as the follows</P>
                     <p>1.$ roscore</p>
-                    <p>2.$ $ roslaunch rosbridge_server rosbridge_websocket.launch</p>
+                    <p>2.$ roslaunch rosbridge_server rosbridge_websocket.launch</p>
                     <p>3.Run the Android/Web App</p>
                     <p>4.Check the /roslibjs_communicate_listener existence by $ rostopic list</p>
-                    <p>5.Enter message in the boxes below</p>
+                    <p>5.Fill in the boxes as the follows</p>
                     <table>
                         <tr><td style="background-color:orange;" >Communicate Message</td><td><input id="comText" name="comText" type="text" value=""/></td></tr>                 
                     </table>
                     <button id="sendComMsg" type="button" onclick="pubComMessage()">
                         Publish Message
                     </button>
-                </form>       
+                </form>
             </div>
             
-            <div class="col-sm-6">                            
+            <div class="col-sm-6">
                 <style>
                     table, th, td { border: 1px solid black; border-collapse: collapse;}
-                </style>                
+                </style>
                 <table style="width:100%">
                     <tr>
                         <th>
@@ -90,15 +91,15 @@
                     </tr>
                 </table>
             </div>
-        </div>    
-    </div> 
+        </div>
+    </div>
 
 <!-- Page43 -->
     <div id="Page43" style="display: none; overflow:hidden;">
         <div style="height: 20%; " class="row">
             <div class="col-sm-8">
                 <h1 class="text-primary text-center">
-                    ROS Speech Test;
+                    ROS Speech test;
                 </h1>
             </div>
             <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
@@ -109,15 +110,15 @@
         </div>
         
         <div style="height: 30%; " class="row">
-            <div class="col-sm-12">        
+            <div class="col-sm-12">
                 <form name="ctrlPanel">
                     <P>Check the steps as the follows</P>
-                    <p>0.Setting ROS_IP</p>                    
-                    <p>1.$ roscore</p>
-                    <p>2.$ $ roslaunch rosbridge_server rosbridge_websocket.launch</p>
+                    <p>0.Setting ROS_IP</p>
+                    <p>1.$ roslaunch andbot andbot2.launch</p>
+                    <p>2.$ roslaunch rosbridge_server rosbridge_websocket.launch</p>
                     <p>3.Run the Android/Web App</p>
                     <p>4.Check the /roslibjs_communicate_listener existence by $ rostopic list</p>
-                    <p>5.Enter message in the boxes below</p>
+                    <p>5.Fill in the boxes as the follows</p>
                     <div style="height: 10%; " class="row">
                         <div style="height: 50%; float:left; margin-left: 2%; margin-top: 2%" class="col-sm-3">
                             <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-info active" onclick="pubSpeechSW(1)">
@@ -138,10 +139,10 @@
                                 <td>
                                     <input id="TTSText" name="TTSText" type="text" value=""/>
                                 </td>
-                             </tr>                 
+                             </tr>
                         </table>
                     <button id="speachMsgBtn" type="button" onclick="pubTTSSpeech()">Publish Message</button>
-                </form>       
+                </form>
             </div>
         </div>
         
@@ -149,7 +150,7 @@
             <div class="col-sm-12">
                 <style>
                     table, th, td { border: 1px solid black; border-collapse: collapse;}
-                </style>                
+                </style>
                 <table style="width:80%">
                     <tr>
                         <th style="background-color:orange;" >
@@ -161,10 +162,10 @@
                     <tr>
                         <th>
                             ASR Request
-                        </th>  
+                        </th>
                         <th>
                             TTS Request
-                        </th>  
+                        </th>
                     </tr>
                     <tr>
                         <td>
@@ -179,8 +180,278 @@
         </div>
     </div>
 
-<!-- PageVideo -->
+<!-- Page44 -->
+    <div id="Page44" style="display: none; overflow:hidden;">
+        <div style="height: 10%; " class="row">
+            <div class="col-sm-8">
+                <h1 class="text-primary text-center">
+                    ROS move_base and location_manager test;
+                </h1>
+            </div>
+            <div style="height: 50%; float:right; margin-right: 5%; margin-top: 2%" class="col-sm-2">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(4)">
+                    return
+                </button>
+            </div>
+        </div>
+        
+        <div style="height: 10%; " class="row">
+            <div class="col-sm-12">
+                <form name="ctrlPanel">
+                  Check the steps as the follows </br>
+                    <P>Check the steps as the follows</P>
+                    <p>1.$ roslaunch andbot andbot2.launch</p>
+                    <p>2.$ rosrun location_manager locationMgr_server</p>
+                    <p>3.$ roslaunch rosbridge_server rosbridge_websocket.launch</p>
+                    <p>4.Run the Android/Web App</p>
+                    <p>5.Fill in the boxes as the follows</p>
+                     <table>
+                        <tr>
+                            <th style="background-color:orange" colspan="4" align="center">
+                                move_base test
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="background-color:green;" >
+                                Position
+                            </td>
+                            <td>
+                                <input id="SetLocPosTextX" name="SetLocPosTextX" type="text" value=""/>
+                            </td>
+                            <td>
+                                <input id="SetLocPosTextY" name="SetLocPosTextY" type="text" value=""/>
+                            </td>
+                            <td>
+                                <input id="SetLocPosTextZ" name="SetLocPosTextZ" type="text" value=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color:green;" >
+                                orientation
+                            </td>
+                            <td>
+                                <input id="SetLocOrientTextX" name="SetLocOrientTextX" type="text" value=""/>
+                            </td>
+                            <td>
+                                <input id="SetLocOrientTextY" name="SetLocOrientTextY" type="text" value=""/>
+                            </td>
+                            <td>
+                                <input id="SetLocOrientTextZ" name="SetLocOrientTextZ" type="text" value=""/>
+                            </td>
+                            <td>
+                                <input id="SetLocOrientTextW" name="SetLocOrientTextW" type="text" value=""/>
+                            </td>
+                            <td>
+                                <button id="SetLocBtn" type="button" onclick="SetLocation()">Set goal</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>
+                    <p>
+                    <table>
+                        <th style="background-color:orange" colspan="4" align="center">
+                             location_manager test
+                        </th>
+                        <tr>
+                            <th style="background-color:Gray;" colspan="4" >
+                                Set Location
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="background-color:green;" >
+                                Name
+                            </td>
+                            <td>
+                                <input id="SetLocNameText" name="SetLocNameText" type="text" value=""/>
+                            </td>
+                            <td>
+                                <button id="AddLocationBtn" type="button" onclick="AddLocation()">Add Location</button>
+                            </td>
+                        </tr>
+                     </table>
+                    
+                    <p>
+                    
+                    <table>
+                        <tr>
+                            <td style="background-color:Gray;" >
+                                Query Location
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color:green;" >
+                                Name
+                            </td>
+                            <td>
+                                <input id="QueryLocationText" name="QueryLocationText" type="text" value=""/>
+                            </td>
+                            <td>
+                                <button id="QueryLocationBtn" type="button" onclick="QueryLocation()">Query Location by Name</button>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <p>
+                    
+                    <table>
+                        <tr>
+                            <th style="background-color:orange" >
+                                POSE info
+                            </th>
+                            <td>
+                                <button id="sendGolBtn" type="button" onclick="SendGol()">Set the goal</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color:green;" >
+                                Name
+                            </td>
+                            <td style="background-color:green;" >
+                                Position.x
+                            </td>
+                            <td style="background-color:green;" >
+                                Position.y
+                            </td>
+                            <td style="background-color:green;" >
+                                Position.z
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <output id="GetLocPosTextNAME" name="GetLocPosTextNAME" type="text"/>
+                            </td>
+                            <td>
+                                <output id="GetLocPosTextX" name="GetLocPosTextX" type="text"/>
+                            </td>
+                            <td>
+                                <output id="GetLocPosTextY" name="GetLocPosTextY" type="text"/>
+                            </td>
+                            <td>
+                                <output id="GetLocPosTextZ" name="GetLocPosTextZ" type="text"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color:green;" >
+                                Orientation.x
+                            </td>
+                            <td style="background-color:green;" >
+                                Orientation.y
+                            </td>
+                            <td style="background-color:green;" >
+                                Orientation.z
+                            </td>
+                            <td style="background-color:green;" >
+                                Orientation.w
+                            </td>
+                        </tr>
+                        <p>
+                        <tr>
+                            <td>
+                                <output id="GetLocOrientTextX" name="GetLocOrientTextX" type="text"/>
+                            </td>
+                            <td>
+                                <output id="GetLocOrientTextY" name="GetLocOrientTextY" type="text"/>
+                            </td>
+                            <td>
+                                <output id="GetLocOrientTextZ" name="GetLocOrientTextZ" type="text"/>
+                            </td>
+                            <td>
+                                <output id="GetLocOrientTextW" name="GetLocOrientTextW" type="text"/>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <p>
+                    
+                    <table>
+                        <tr>
+                            <td style="background-color:Gray;" >
+                                Delete Named Location
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color:green;" >
+                                Name
+                            </td>
+                        <td>
+                            <input id="DeleteLocationText" name="DeleteLocationText" type="text" value=""/>
+                            </td>
+                            <td>
+                                <button id="DeleteLocationBtn" type="button" onclick="DeleteLocation()">Delete Named Location by Name</button>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <p>
+                    	
+                    <table>
+                        <tr>
+                            <td style="background-color:Gray;" >
+                                Delete All Locations
+                            </td>
+                            <td>
+                                <button id="DeleteAllLocationBtn" type="button" onclick="DeleteAllLocation()">Delete All Locations</button>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <p>
+                    
+                    <table>
+                        <tr>
+                            <th style="background-color:orange;" >
+                                Information
+                            </th>
+                            <td>
+                                <button id="QueryAllLocationBtn" type="button" onclick="QueryAllLocation()">Query All Location</button>
+                            </td>
+                            <td>
+                                <button id="CleanLocStatusBtn" type="button" onclick="CleanLocStatus()">Clean all infomation</button>
+                            </td>                             
+                        </tr>
+                    </table>
+                     
+                </form>
+            </div>
+        </div>
+        
+        <p>
+        
+        <div style="height: 50%; " class="row">
+            <div class="col-sm-12">
+                <style>
+                    table, th, td { border: 1px solid black; border-collapse: collapse;}
+                </style>                
+                <table style="width:50%">
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Pose
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <output id="LocationName" name="LocationName" type="text"/>
+                        </td>
+                        <td>
+                            <output id="LocationPosepos" name="LocationPosepos" type="text"/>
+                        </td>
+                        <td>
+                            <output id="LocationPoseOrient" name="LocationPoseOrient" type="text"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+    </div>
 
+<!-- PageVideo -->
     <div id="PageVideo" style="display: none; overflow: hidden;">
         <div style="height: 20%; " class="row">
             <div class="col-sm-8">
@@ -439,8 +710,9 @@
                 </button>
             </div>
             <div style="height: 100%;" class="col-sm-6">
-                <button style="height: 100%;" type="button" class="btn btn-primary btn-block btn-lg disabled">
+                <button style="height: 100%;" type="button" class="btn btn-lg btn-block btn-primary active" onclick="switchPage(44)">
                     工具四
+                    <br>(ROS move_base Test)
                 </button>
             </div>
         </div>

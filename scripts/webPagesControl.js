@@ -70,6 +70,13 @@
                     pubSpeechSW(0);
                 }, 2000);
             }
+            else if ((getTTS == "工具四") || (getTTS == "工具4")) {
+                switchPage(44);
+                Then("工具四"); 
+                setTimeout(function () {
+                    pubSpeechSW(0);
+                }, 2000);
+            }
             else if ((getTTS == "可以了") || (getTTS == "不用") || (getTTS == "不用了")|| (getTTS == "好了")|| (getTTS == "停止")|| (getTTS == "没有")|| (getTTS == "谢谢")) {
                 Then("好的");
                 setTimeout(function () {
@@ -100,6 +107,7 @@
                 document.getElementById("Page41").style.display="none";
                 document.getElementById("Page42").style.display="none";
                 document.getElementById("Page43").style.display="none";
+                document.getElementById("Page44").style.display="none";
         }
         
 //Web Pages Dispatch
@@ -135,11 +143,15 @@
             else if(i==42){
                 disablePages();
                 document.getElementById("Page42").style.display="block";
-            }    
+            }
             else if(i==43){
                 disablePages();
                 document.getElementById("Page43").style.display="block";
-            }    
+            }
+            else if(i==44){
+                disablePages();
+                document.getElementById("Page44").style.display="block";
+            }
             else if(i==888){
                 disablePages();
                 document.getElementById("PageVideo").style.display="block";
